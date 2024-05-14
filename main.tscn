@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bolib6fieww0"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_fbeu5"]
+[ext_resource type="PackedScene" uid="uid://2dr7kitpuk60" path="res://hero/Hero.tscn" id="1_hrt7c"]
+[ext_resource type="Texture2D" uid="uid://uyths4wm70p5" path="res://monochrome_tilemap_transparent_packed.png" id="2_rugw1"]
+[ext_resource type="PackedScene" uid="uid://bjmgjk4xar467" path="res://Coin.tscn" id="4_h8p2j"]
+[ext_resource type="PackedScene" uid="uid://cc1bduldqmcxi" path="res://Fire.tscn" id="5_isfp4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5l4pi"]
+texture = ExtResource("2_rugw1")
+15:18/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_wo2sv"]
+sources/0 = SubResource("TileSetAtlasSource_5l4pi")
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fbeu5")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_wo2sv")
+format = 2
+layer_0/modulate = Color(0.0705882, 0.290196, 0.486275, 0.988235)
+layer_0/tile_data = PackedInt32Array(1376258, 983040, 18, 1245186, 983040, 18, 1310722, 983040, 18, 1441794, 983040, 18, 1507330, 983040, 18, 1245187, 983040, 18, 1310723, 983040, 18, 1376259, 983040, 18, 1441795, 983040, 18, 1507331, 983040, 18, 1245188, 983040, 18, 1310724, 983040, 18, 1376260, 983040, 18, 1441796, 983040, 18, 1507332, 983040, 18, 1245189, 983040, 18, 1310725, 983040, 18, 1376261, 983040, 18, 1441797, 983040, 18, 1507333, 983040, 18, 1245190, 983040, 18, 1310726, 983040, 18, 1376262, 983040, 18, 1441798, 983040, 18, 1310727, 983040, 18, 1376263, 983040, 18, 1441799, 983040, 18, 1310721, 983040, 18, 1376257, 983040, 18, 1441793, 983040, 18, 1507329, 983040, 18, 1114118, 983040, 18, 1179654, 983040, 18, 786436, 983040, 18, 851972, 983040, 18, 917508, 983040, 18, 983044, 983040, 18, 786437, 983040, 18, 851973, 983040, 18, 917509, 983040, 18, 983045, 983040, 18, 786438, 983040, 18, 851974, 983040, 18, 917510, 983040, 18, 983046, 983040, 18, 1048582, 983040, 18, 786439, 983040, 18, 851975, 983040, 18, 917511, 983040, 18, 983047, 983040, 18, 786440, 983040, 18, 851976, 983040, 18, 917512, 983040, 18, 983048, 983040, 18, 720901, 983040, 18, 720902, 983040, 18, 720903, 983040, 18, 720904, 983040, 18, 720900, 983040, 18, 720899, 983040, 18, 786435, 983040, 18, 851971, 983040, 18, 917507, 983040, 18, 983043, 983040, 18, 720905, 983040, 18, 786441, 983040, 18, 851977, 983040, 18, 917513, 983040, 18, 983049, 983040, 18)
+
+[node name="Coin3" parent="." instance=ExtResource("4_h8p2j")]
+modulate = Color(0.964706, 0.843137, 0.419608, 1)
+position = Vector2(56, -56)
+scale = Vector2(0.5, 0.5)
+
+[node name="Coin4" parent="." instance=ExtResource("4_h8p2j")]
+modulate = Color(0.964706, 0.843137, 0.419608, 1)
+position = Vector2(8, -56)
+scale = Vector2(0.5, 0.5)
+
+[node name="Fire" parent="." instance=ExtResource("5_isfp4")]
+position = Vector2(112, -24)
+scale = Vector2(0.5, 1)
+
+[node name="Coin5" parent="." instance=ExtResource("4_h8p2j")]
+position = Vector2(104, 216)
+
+[node name="Hero" parent="." instance=ExtResource("1_hrt7c")]
+position = Vector2(24, 376)
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

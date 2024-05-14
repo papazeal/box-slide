@@ -1,0 +1,143 @@
+extends Area2D
+signal hit
+
+@export var move_slide = true
+
+@onready var tile_map: TileMap = $"../TileMap"
+@onready var sprite = $AnimatedSprite2D
+@onready var sfx_jump = $sfx_jump
+
+var is_moving = false
+var next_position = null
+var check_point_tile = null
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	# init checkpoint
+	check_point_tile = tile_map.local_to_map(global_position)
+	
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if is_moving:
+		return
+		
+	if Input.is_action_pressed("down"):
+		move(Vector2.DOWN)
+	elif Input.is_action_pressed("up"):
+		move(Vector2.UP)
+	elif Input.is_action_pressed("right"):
+		move(Vector2.RIGHT)
+	elif Input.is_action_pressed("left"):
+		move(Vector2.LEFT)
+	
+func _physics_process(delta):
+	if sprite.scale != Vector2(1,1):
+		sprite.scale.x = move_toward(sprite.scale.x, 1, 3*delta)
+		sprite.scale.y = move_toward(sprite.scale.y, 1, 3*delta)
+	
+	if !is_moving:
+		return
+	
+	if global_position == next_position:
+		next_position = null
+		is_moving = false
+		return
+	
+	global_position = global_position.move_toward(next_position, 200*delta)
+	
+
+func move(direction: Vector2i):
+	sfx_jump.pitch_scale = 1
+	sfx_jump.play()
+	#get current tile
+	var current_tile: Vector2i = tile_map.local_to_map(global_position)
+	
+	#get target tile
+	var target_tile: Vector2i = current_tile
+	#var walkable = false
+	if move_slide:
+		while tile_map.get_cell_tile_data(0, target_tile + direction):
+			target_tile += direction
+	else:
+		if tile_map.get_cell_tile_data(0, target_tile + direction):
+			target_tile += direction
+	
+	# start moving
+	next_position = tile_map.map_to_local(target_tile)
+	if direction == Vector2i.UP or direction == Vector2i.DOWN:
+		sprite.scale = Vector2(0.6,1.5)
+	else:
+		sprite.scale = Vector2(1.5, 0.6)
+	is_moving = true
+	print_debug('current tile', current_tile)
+	print_debug('target tile', target_tile)
+	
+		
+	
+func reborn():
+	global_position = tile_map.map_to_local(check_point_tile)
+	next_position = global_position
+	pass
+
+#func _on_body_entered(body):
+	#hide()
+	#hit.emit()
+	#print_debug('hit')
+	#$CollisionShape2D.set_deferred("disabled", true)
+	#pass # Replace with function body.
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+	
+var swipe_start = null
+var minimum_drag = 15
+
+func _unhandled_input(event):
+	if is_moving:
+		return
+		
+	if event.is_action_pressed("click"):
+		swipe_start = event.get_position()
+	if event.is_action_released("click"):
+		_calculate_swipe(event.get_position())
+
+func _calculate_swipe(swipe_end):
+	if swipe_start == null: 
+		return
+	var swipe = swipe_end - swipe_start
+	if abs(swipe.x) > minimum_drag and abs(swipe.x) > abs(swipe.y):
+		if swipe.x > 0:
+			move(Vector2.RIGHT)
+		else:
+			move(Vector2.LEFT)
+	if abs(swipe.y) > minimum_drag and abs(swipe.y) > abs(swipe.x):
+		if swipe.y > 0:
+			move(Vector2.DOWN)
+		else:
+			move(Vector2.UP)
+
+
+
+func _on_area_entered(area):
+	if area.get_collision_layer_value(2):
+		sfx_jump.pitch_scale = 2
+		sfx_jump.play()
+		area.queue_free()
+		print_debug('coin hit')
+	if area.get_collision_layer_value(3):
+		sfx_jump.pitch_scale = 0.5
+		sfx_jump.play()
+		reborn()
+		print_debug('fire hit')
+	if area.get_collision_layer_value(4):
+		sfx_jump.pitch_scale = 0.5
+		sfx_jump.play()
+		print_debug('checkpoint hit')
+	
+	
+	pass # Replace with function body.

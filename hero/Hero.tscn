@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://2dr7kitpuk60"]
+
+[ext_resource type="Script" path="res://hero/hero.gd" id="1_jvyhp"]
+[ext_resource type="Texture2D" uid="uid://uyths4wm70p5" path="res://monochrome_tilemap_transparent_packed.png" id="2_dw71x"]
+[ext_resource type="AudioStream" uid="uid://dl6hmclovsnvm" path="res://bit.wav" id="4_160sa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppu46"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5wl3"]
+atlas = ExtResource("2_dw71x")
+region = Rect2(240, 288, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_witk8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5wl3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5wl3")
+}],
+"loop": true,
+"name": &"flash",
+"speed": 5.0
+}]
+
+[node name="Hero" type="Area2D"]
+position = Vector2(0, 1)
+collision_mask = 6
+script = ExtResource("1_jvyhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ppu46")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_witk8")
+animation = &"flash"
+
+[node name="sfx_jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_160sa")
+volume_db = -10.0
+pitch_scale = 1.2
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
