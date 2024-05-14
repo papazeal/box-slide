@@ -24,8 +24,7 @@ func _process(delta):
 	
 	# stop at current tile if hit with stone
 	if is_moving and ray.is_colliding():
-		#var stone:Area2D = ray.get_collider() as Area2D
-		#stone.queue_free()
+		ray.enabled = false
 		next_position = tile_map.map_to_local(tile_map.local_to_map(global_position))
 		
 	# user input
@@ -61,8 +60,7 @@ func move(direction: Vector2i):
 	sfx_jump.pitch_scale = 1
 	sfx_jump.play()
 	
-	#set ray direction
-	ray.target_position = direction * 16
+	
 	
 	#get current tile
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
@@ -83,6 +81,11 @@ func move(direction: Vector2i):
 		sprite.scale = Vector2(0.6,1.5)
 	else:
 		sprite.scale = Vector2(1.5, 0.6)
+		
+	#set ray direction
+	ray.target_position = direction * 16
+	ray.enabled = true
+	
 	is_moving = true
 	print_debug('current tile', current_tile)
 	print_debug('target tile', target_tile)
