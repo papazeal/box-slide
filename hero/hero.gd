@@ -6,6 +6,7 @@ signal hit
 @onready var tile_map: TileMap = $"../TileMap"
 @onready var sprite = $AnimatedSprite2D
 @onready var sfx_jump = $sfx_jump
+@onready var ray = $RayCast2D
 
 var is_moving = false
 var next_position = null
@@ -21,6 +22,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	# stop at current tile if hit with stone
+	if is_moving and ray.is_colliding():
+		#var stone:Area2D = ray.get_collider() as Area2D
+		#stone.queue_free()
+		next_position = tile_map.map_to_local(tile_map.local_to_map(global_position))
+		
+	# user input
 	if is_moving:
 		return
 		
@@ -52,6 +60,10 @@ func _physics_process(delta):
 func move(direction: Vector2i):
 	sfx_jump.pitch_scale = 1
 	sfx_jump.play()
+	
+	#set ray direction
+	ray.target_position = direction * 16
+	
 	#get current tile
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
 	
@@ -82,12 +94,6 @@ func reborn():
 	next_position = global_position
 	pass
 
-#func _on_body_entered(body):
-	#hide()
-	#hit.emit()
-	#print_debug('hit')
-	#$CollisionShape2D.set_deferred("disabled", true)
-	#pass # Replace with function body.
 
 func start(pos):
 	position = pos
