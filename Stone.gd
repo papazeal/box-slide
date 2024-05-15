@@ -1,6 +1,7 @@
 extends Area2D
 
-@export var stone:Area2D = null
+@onready var sprite = $Sprite2D
+@onready var collision_shape = $CollisionShape2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,5 +13,10 @@ func _process(delta):
 	pass
 
 func toggle():
-	print('toggle')
-	stone.toggle()
+	
+	if collision_layer == 0:
+		collision_layer = 8
+		sprite.show()
+	else:
+		collision_layer = 0
+		sprite.hide()

@@ -53,7 +53,7 @@ func _physics_process(delta):
 		is_moving = false
 		return
 	
-	global_position = global_position.move_toward(next_position, 200*delta)
+	global_position = global_position.move_toward(next_position, 180*delta)
 	
 
 func move(direction: Vector2i):
@@ -152,8 +152,10 @@ func _on_area_entered(area):
 		sfx_jump.play()
 		print_debug('checkpoint hit')
 	if area.get_collision_layer_value(5):
-		sfx_jump.pitch_scale = 0.5
+		sprite.scale = Vector2(1.3,1.3)
+		sfx_jump.pitch_scale = 2
 		sfx_jump.play()
+		area.toggle()
 		print_debug('switch hit')
 	
 	
