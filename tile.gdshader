@@ -15,5 +15,5 @@ void fragment() {
 	//COLOR.a = alpha;
 	//COLOR = vec4(texture_color.r,texture_color.g,texture_color.b,texture_color.a-alpha);
 	COLOR = COLOR * texture(TEXTURE, UV);
-	COLOR += vec4(alpha/8.0);
+	COLOR += vec4(alpha/8.0 * abs(cos(TIME)));
 }
