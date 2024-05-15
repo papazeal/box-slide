@@ -15,4 +15,5 @@ void fragment()
 	float b = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*b_displacement), 0.0).b;
 	
 	COLOR = vec4(r, g, b, 1.0);
+	//COLOR = vec4(1.0, 0.0, 0.0, 1.0);
 }

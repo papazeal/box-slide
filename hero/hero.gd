@@ -57,10 +57,6 @@ func _physics_process(delta):
 	
 
 func move(direction: Vector2i):
-	sfx_jump.pitch_scale = 1
-	sfx_jump.play()
-	
-	
 	
 	#get current tile
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
@@ -75,6 +71,8 @@ func move(direction: Vector2i):
 		if tile_map.get_cell_tile_data(0, target_tile + direction):
 			target_tile += direction
 	
+	
+	
 	# start moving
 	next_position = tile_map.map_to_local(target_tile)
 	if direction == Vector2i.UP or direction == Vector2i.DOWN:
@@ -85,6 +83,12 @@ func move(direction: Vector2i):
 	#set ray direction
 	ray.target_position = direction * 16
 	ray.enabled = true
+	
+	if target_tile == current_tile:
+		return
+	
+	sfx_jump.pitch_scale = 1
+	sfx_jump.play()
 	
 	is_moving = true
 	print_debug('current tile', current_tile)

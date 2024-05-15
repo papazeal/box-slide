@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2dr7kitpuk60"]
+[gd_scene load_steps=8 format=3 uid="uid://2dr7kitpuk60"]
 
 [ext_resource type="Script" path="res://hero/hero.gd" id="1_jvyhp"]
 [ext_resource type="Texture2D" uid="uid://uyths4wm70p5" path="res://monochrome_tilemap_transparent_packed.png" id="2_dw71x"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppu46"]
 size = Vector2(16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra6ua"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j5wl3"]
 atlas = ExtResource("2_dw71x")
@@ -39,6 +41,7 @@ script = ExtResource("1_jvyhp")
 shape = SubResource("RectangleShape2D_ppu46")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ra6ua")
 sprite_frames = SubResource("SpriteFrames_witk8")
 animation = &"flash"
 
