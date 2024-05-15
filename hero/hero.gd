@@ -151,6 +151,10 @@ func _on_area_entered(area):
 		sfx_jump.pitch_scale = 0.5
 		sfx_jump.play()
 		print_debug('checkpoint hit')
+	if area.get_collision_layer_value(5):
+		sfx_jump.pitch_scale = 0.5
+		sfx_jump.play()
+		print_debug('switch hit')
 	
 	
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bolib6fieww0"]
+[gd_scene load_steps=15 format=3 uid="uid://bolib6fieww0"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fbeu5"]
 [ext_resource type="PackedScene" uid="uid://2dr7kitpuk60" path="res://hero/Hero.tscn" id="1_hrt7c"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://uyths4wm70p5" path="res://monochrome_tilemap_transparent_packed.png" id="2_rugw1"]
 [ext_resource type="PackedScene" uid="uid://cc1bduldqmcxi" path="res://Fire.tscn" id="5_isfp4"]
 [ext_resource type="PackedScene" uid="uid://b1l66kkjrvfbi" path="res://Stone.tscn" id="6_6nsl1"]
+[ext_resource type="PackedScene" uid="uid://bg5wmekdivygu" path="res://Switch.tscn" id="7_hf6q3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p451o"]
 shader = ExtResource("2_khs5x")
@@ -54,7 +55,6 @@ position = Vector2(72, 504)
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
-zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -79,10 +79,18 @@ texture = SubResource("GradientTexture2D_flbdn")
 position = Vector2(8, 40)
 
 [node name="Stone" parent="." instance=ExtResource("6_6nsl1")]
-position = Vector2(88, 216)
-
-[node name="Stone2" parent="." instance=ExtResource("6_6nsl1")]
-position = Vector2(40, 216)
+position = Vector2(40, 152)
 
 [node name="Fire3" parent="." instance=ExtResource("5_isfp4")]
 position = Vector2(-8, -168)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(72, 200, 40, 184, 40, 152)
+width = 2.0
+default_color = Color(1, 1, 1, 0.184314)
+
+[node name="Switch" parent="." node_paths=PackedStringArray("stone") instance=ExtResource("7_hf6q3")]
+position = Vector2(72, 200)
+stone = NodePath("../Stone")
