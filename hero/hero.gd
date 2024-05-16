@@ -157,6 +157,9 @@ func _on_area_entered(area):
 		sfx_jump.play()
 		area.toggle()
 		print_debug('switch hit')
+	if area.get_collision_layer_value(6):
+		check_point_tile = tile_map.local_to_map(area.global_position)
+		print_debug('checkpoint hit')
 	
 	
 	pass # Replace with function body.
