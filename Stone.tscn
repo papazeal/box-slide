@@ -23,4 +23,5 @@ modulate = Color(1, 1, 1, 0.196078)
 texture = SubResource("AtlasTexture_wlxhj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.964706, 0.843137, 0.419608, 1)
 texture = SubResource("AtlasTexture_wlxhj")
