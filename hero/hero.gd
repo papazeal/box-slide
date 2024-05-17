@@ -9,6 +9,7 @@ signal hit
 @onready var ray = $RayCast2D
 @onready var end_text = $end_text
 @onready var animation = $AnimationPlayer
+@onready var camera: Camera2D = $Camera2D
 
 var is_moving = false
 var next_position = null
@@ -166,6 +167,7 @@ func _on_area_entered(area):
 		sprite.scale = Vector2(1.5,1.5)
 		sfx_jump.pitch_scale = 3
 		sfx_jump.play()
+		camera.position_smoothing_enabled = false
 		next_position -= Vector2(0,200000)
 		is_moving = true
 		animation.play('end')
