@@ -56,7 +56,7 @@ func _physics_process(delta):
 		is_moving = false
 		return
 	
-	global_position = global_position.move_toward(next_position, 180*delta)
+	global_position = global_position.move_toward(next_position, 150*delta)
 	
 
 func move(direction: Vector2i):
