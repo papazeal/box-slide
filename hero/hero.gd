@@ -7,6 +7,8 @@ signal hit
 @onready var sprite = $AnimatedSprite2D
 @onready var sfx_jump = $sfx_jump
 @onready var ray = $RayCast2D
+@onready var end_text = $end_text
+@onready var animation = $AnimationPlayer
 
 var is_moving = false
 var next_position = null
@@ -20,7 +22,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	
 	# stop at current tile if hit with stone
 	if is_moving and ray.is_colliding():
@@ -160,6 +162,14 @@ func _on_area_entered(area):
 	if area.get_collision_layer_value(6):
 		check_point_tile = tile_map.local_to_map(area.global_position)
 		print_debug('checkpoint hit')
+	if area.get_collision_layer_value(7):
+		sprite.scale = Vector2(1.5,1.5)
+		sfx_jump.pitch_scale = 3
+		sfx_jump.play()
+		next_position -= Vector2(0,200000)
+		is_moving = true
+		animation.play('end')
+		print_debug('goal hit')
 	
 	
 	pass # Replace with function body.
