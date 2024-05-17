@@ -54,8 +54,7 @@ color = Color(0.378445, 0.441223, 0.692089, 1)
 color_ramp = SubResource("Gradient_ilba5")
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 20.0
 
 [node name="Stone" parent="." instance=ExtResource("6_6nsl1")]
 position = Vector2(40, 168)
