@@ -17,5 +17,5 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_00uuf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.426102, 0.710575, 1)
+modulate = Color(0.270588, 0.662745, 1, 1)
 texture = SubResource("AtlasTexture_wlxhj")

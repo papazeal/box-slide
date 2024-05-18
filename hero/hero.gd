@@ -56,7 +56,7 @@ func _physics_process(delta):
 		is_moving = false
 		return
 	
-	global_position = global_position.move_toward(next_position, 150*delta)
+	global_position = global_position.move_toward(next_position, 180*delta)
 	
 
 func move(direction: Vector2i):
@@ -164,8 +164,9 @@ func _on_area_entered(area):
 		check_point_tile = tile_map.local_to_map(area.global_position)
 		print_debug('checkpoint hit')
 	if area.get_collision_layer_value(7):
-		sprite.scale = Vector2(1.5,1.5)
-		sfx_jump.pitch_scale = 3
+		area.queue_free()
+		sprite.scale = Vector2(1.4,1.4)
+		sfx_jump.pitch_scale = 2.5
 		sfx_jump.play()
 		camera.position_smoothing_enabled = false
 		next_position -= Vector2(0,200000)

@@ -110,7 +110,7 @@ offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 48.0
 text = "
-good job!
+you did it!
 thank you for playing"
 label_settings = SubResource("LabelSettings_7ky0t")
 horizontal_alignment = 1
